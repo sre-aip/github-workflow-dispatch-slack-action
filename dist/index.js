@@ -33265,6 +33265,7 @@ const main = async () => {
   const repository = core.getInput("repository");
   const workflow = core.getInput("workflow", { required: true });
   const inputs = core.getInput("inputs");
+  const buttonNames = JSON.parse(core.getInput("button"));
   let ref = core.getInput("ref");
   let githubToken = core.getInput("github-token");
   const defaultGithubToken = core.getInput("default-github-token");
@@ -33305,7 +33306,7 @@ const main = async () => {
 
   const workflowName = await getWorkflowName(owner, repo, workflow);
 
-  const message = createMessage(owner, repo, workflow, workflowName, ref, inputs, mention);
+  const message = createMessage(owner, repo, workflow, workflowName, ref, inputs, mention, buttonNames);
 
   if (slackBotToken) {
     await sendByBotToken(slackBotToken, channel, message);
@@ -33380,7 +33381,7 @@ module.exports = {
 
 const BASE_URL = "https://github.com";
 
-const createMessage = (owner, repo, workflow, workflowName, ref, inputs, mention) => {
+const createMessage = (owner, repo, workflow, workflowName, ref, inputs, mention, buttonNames) => {
   const headText = "Following workflow will be executed.";
   const inputsJson = inputs ? JSON.parse(inputs) : undefined;
   const message = {
@@ -33451,7 +33452,7 @@ const createMessage = (owner, repo, workflow, workflowName, ref, inputs, mention
           type: "button",
           text: {
             type: "plain_text",
-            text: "OK",
+            text: buttonNames && buttonNames.ok ? buttonNames.ok : "OK",
           },
           style: "primary",
           value: JSON.stringify({
@@ -33469,7 +33470,7 @@ const createMessage = (owner, repo, workflow, workflowName, ref, inputs, mention
           type: "button",
           text: {
             type: "plain_text",
-            text: "Cancel",
+            text: buttonNames && buttonNames.cancel ? buttonNames.cancel : "Cancel",
           },
           style: "danger",
           value: JSON.stringify({
@@ -33477,7 +33478,7 @@ const createMessage = (owner, repo, workflow, workflowName, ref, inputs, mention
           }),
         },
       ],
-    }
+    },
   );
 
   return message;

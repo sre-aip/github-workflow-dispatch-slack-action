@@ -28,6 +28,9 @@ inputs:
     description: "Slack webhook URL"
   mention:
     description: "Slack user to mention"
+  button:
+    description: "button name"
+    default: '{"ok": "OK", "cancel": "Cancel"}'
 runs:
   using: "node20"
   main: "dist/index.js"

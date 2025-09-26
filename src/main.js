@@ -31,6 +31,7 @@ const main = async () => {
   const repository = core.getInput("repository");
   const workflow = core.getInput("workflow", { required: true });
   const inputs = core.getInput("inputs");
+  const buttonNames = JSON.parse(core.getInput("button"));
   let ref = core.getInput("ref");
   let githubToken = core.getInput("github-token");
   const defaultGithubToken = core.getInput("default-github-token");
@@ -71,7 +72,7 @@ const main = async () => {
 
   const workflowName = await getWorkflowName(owner, repo, workflow);
 
-  const message = createMessage(owner, repo, workflow, workflowName, ref, inputs, mention);
+  const message = createMessage(owner, repo, workflow, workflowName, ref, inputs, mention, buttonNames);
 
   if (slackBotToken) {
     await sendByBotToken(slackBotToken, channel, message);
