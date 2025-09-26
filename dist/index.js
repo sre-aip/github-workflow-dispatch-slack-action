@@ -33265,7 +33265,7 @@ const main = async () => {
   const repository = core.getInput("repository");
   const workflow = core.getInput("workflow", { required: true });
   const inputs = core.getInput("inputs");
-  const buttonNames = core.getInput("button");
+  const button = JSON.parse(core.getInput("button"));
   let ref = core.getInput("ref");
   let githubToken = core.getInput("github-token");
   const defaultGithubToken = core.getInput("default-github-token");
@@ -33273,7 +33273,6 @@ const main = async () => {
   let slackBotToken = core.getInput("slack-bot-token");
   let slackWebhookUrl = core.getInput("slack-webhook-url");
   const mention = core.getInput("mention");
-  console.log("log: " + JSON.parse(buttonNames).ok);
 
   const [owner, repo] = repository.split("/");
 
