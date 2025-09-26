@@ -71,7 +71,7 @@ const createMessage = (owner, repo, workflow, workflowName, ref, inputs, mention
           type: "button",
           text: {
             type: "plain_text",
-            text: buttonNames && buttonNames.ok ? buttonNames.ok: "OK",
+            text: buttonNames && buttonNames.ok ? buttonNames.ok : "OK",
           },
           style: "primary",
           value: JSON.stringify({
@@ -97,7 +97,7 @@ const createMessage = (owner, repo, workflow, workflowName, ref, inputs, mention
           }),
         },
       ],
-    }
+    },
   );
 
   return message;
