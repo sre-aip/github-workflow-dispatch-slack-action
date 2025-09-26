@@ -31,7 +31,7 @@ const main = async () => {
   const repository = core.getInput("repository");
   const workflow = core.getInput("workflow", { required: true });
   const inputs = core.getInput("inputs");
-  const button = JSON.parse(core.getInput("button"));
+  const buttonNames = JSON.parse(core.getInput("button"));
   let ref = core.getInput("ref");
   let githubToken = core.getInput("github-token");
   const defaultGithubToken = core.getInput("default-github-token");
