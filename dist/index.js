@@ -33273,6 +33273,7 @@ const main = async () => {
   let slackBotToken = core.getInput("slack-bot-token");
   let slackWebhookUrl = core.getInput("slack-webhook-url");
   const mention = core.getInput("mention");
+  console.log("log: " + buttonNames);
 
   const [owner, repo] = repository.split("/");
 
