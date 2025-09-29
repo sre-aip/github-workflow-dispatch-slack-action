@@ -33264,8 +33264,9 @@ const getWorkflowName = async (owner, repo, workflowId) => {
 const main = async () => {
   const repository = core.getInput("repository");
   const workflow = core.getInput("workflow", { required: true });
-  const cancelWorkflow = core.getInput("cancelWorkflow");
+  const cancelWorkflow = core.getInput("cancel-workflow");
   const inputs = core.getInput("inputs");
+  const cancelInputs = core.getInput("cancel-inputs");
   const buttonNames = JSON.parse(core.getInput("button"));
   let ref = core.getInput("ref");
   let githubToken = core.getInput("github-token");
@@ -33317,6 +33318,7 @@ const main = async () => {
     mention,
     buttonNames,
     cancelWorkflow,
+    cancelInputs
   );
 
   if (slackBotToken) {
@@ -33392,9 +33394,10 @@ module.exports = {
 
 const BASE_URL = "https://github.com";
 
-const createMessage = (owner, repo, workflow, workflowName, ref, inputs, mention, buttonNames, cancelWorkflow) => {
+const createMessage = (owner, repo, workflow, workflowName, ref, inputs, mention, buttonNames, cancelWorkflow, cancelInputs) => {
   const headText = "Following workflow will be executed.";
   const inputsJson = inputs ? JSON.parse(inputs) : undefined;
+  const cancelInputsJson = cancelInputs ? JSON.parse(cancelInputs) : inputsJson;
   const message = {
     text: headText,
     blocks: [
@@ -33491,7 +33494,7 @@ const createMessage = (owner, repo, workflow, workflowName, ref, inputs, mention
               repo,
               workflow_id: cancelWorkflow,
               ref,
-              inputs: inputsJson,
+              inputs: cancelInputsJson,
             },
           }),
         },
