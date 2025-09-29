@@ -33459,7 +33459,7 @@ const createMessage = (owner, repo, workflow, workflowName, ref, inputs, mention
       },
     });
     if (!!cancelInputsJson) {
-      const prettyCancelInput = JSON.stringify(JSON.parse(cancelInputsJson), null, 2);
+      const prettyCancelInput = JSON.stringify(cancelInputsJson, null, 2);
       message.attachments[0].blocks.push({
         type: "section",
         text: {
