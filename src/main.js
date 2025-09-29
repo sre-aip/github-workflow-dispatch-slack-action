@@ -30,6 +30,7 @@ const getWorkflowName = async (owner, repo, workflowId) => {
 const main = async () => {
   const repository = core.getInput("repository");
   const workflow = core.getInput("workflow", { required: true });
+  const cancelWorkflow = core.getInput("cancelWorkflow");
   const inputs = core.getInput("inputs");
   const buttonNames = JSON.parse(core.getInput("button"));
   let ref = core.getInput("ref");
@@ -72,7 +73,17 @@ const main = async () => {
 
   const workflowName = await getWorkflowName(owner, repo, workflow);
 
-  const message = createMessage(owner, repo, workflow, workflowName, ref, inputs, mention, buttonNames);
+  const message = createMessage(
+    owner,
+    repo,
+    workflow,
+    workflowName,
+    ref,
+    inputs,
+    mention,
+    buttonNames,
+    cancelWorkflow,
+  );
 
   if (slackBotToken) {
     await sendByBotToken(slackBotToken, channel, message);

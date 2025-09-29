@@ -1,6 +1,6 @@
 const BASE_URL = "https://github.com";
 
-const createMessage = (owner, repo, workflow, workflowName, ref, inputs, mention, buttonNames) => {
+const createMessage = (owner, repo, workflow, workflowName, ref, inputs, mention, buttonNames, cancelWorkflow) => {
   const headText = "Following workflow will be executed.";
   const inputsJson = inputs ? JSON.parse(inputs) : undefined;
   const message = {
@@ -93,7 +93,14 @@ const createMessage = (owner, repo, workflow, workflowName, ref, inputs, mention
           },
           style: "danger",
           value: JSON.stringify({
-            choice: false,
+            choice: !!cancelWorkflow,
+            request: {
+              owner,
+              repo,
+              workflow_id: cancelWorkflow,
+              ref,
+              inputs: inputsJson,
+            },
           }),
         },
       ],

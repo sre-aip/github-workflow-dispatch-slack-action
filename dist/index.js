@@ -33264,6 +33264,7 @@ const getWorkflowName = async (owner, repo, workflowId) => {
 const main = async () => {
   const repository = core.getInput("repository");
   const workflow = core.getInput("workflow", { required: true });
+  const cancelWorkflow = core.getInput("cancelWorkflow");
   const inputs = core.getInput("inputs");
   const buttonNames = JSON.parse(core.getInput("button"));
   let ref = core.getInput("ref");
@@ -33306,7 +33307,17 @@ const main = async () => {
 
   const workflowName = await getWorkflowName(owner, repo, workflow);
 
-  const message = createMessage(owner, repo, workflow, workflowName, ref, inputs, mention, buttonNames);
+  const message = createMessage(
+    owner,
+    repo,
+    workflow,
+    workflowName,
+    ref,
+    inputs,
+    mention,
+    buttonNames,
+    cancelWorkflow,
+  );
 
   if (slackBotToken) {
     await sendByBotToken(slackBotToken, channel, message);
@@ -33381,7 +33392,7 @@ module.exports = {
 
 const BASE_URL = "https://github.com";
 
-const createMessage = (owner, repo, workflow, workflowName, ref, inputs, mention, buttonNames) => {
+const createMessage = (owner, repo, workflow, workflowName, ref, inputs, mention, buttonNames, cancelWorkflow) => {
   const headText = "Following workflow will be executed.";
   const inputsJson = inputs ? JSON.parse(inputs) : undefined;
   const message = {
@@ -33474,7 +33485,14 @@ const createMessage = (owner, repo, workflow, workflowName, ref, inputs, mention
           },
           style: "danger",
           value: JSON.stringify({
-            choice: false,
+            choice: !!cancelWorkflow,
+            request: {
+              owner,
+              repo,
+              workflow_id: cancelWorkflow,
+              ref,
+              inputs: inputsJson,
+            },
           }),
         },
       ],
