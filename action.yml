@@ -16,6 +16,8 @@ inputs:
     description: "Workflow ref"
   inputs:
     description: "Workflow inputs"
+  cancel-inputs:
+    description: "Cancel workflow inputs"
   github-token:
     description: "GitHub token"
   default-github-token:
