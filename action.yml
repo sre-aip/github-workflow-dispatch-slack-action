@@ -8,8 +8,10 @@ inputs:
     description: "Target repository"
     default: ${{ github.repository }}
   workflow:
-    description: "Workflow ID or filename"
+    description: "Workflow ID or filename for ok"
     required: true
+  cancel-workflow:
+    description: "Workflow ID or filename for cancel"
   ref:
     description: "Workflow ref"
   inputs:
