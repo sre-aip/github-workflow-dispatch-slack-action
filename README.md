@@ -10,19 +10,20 @@ Terraform module.
 
 ## Inputs
 
-| Name                | Description                                           | Required | Default                                                 |
-| ------------------- | ----------------------------------------------------- | -------- | ------------------------------------------------------- |
-| `repository`        | Owner and repository name                             | No       | `${{ github.repository }}`                              |
-| `workflow`          | Workflow ID or file name for ok                       | Yes      | N/A                                                     |
-| `ref`               | Git reference for the workflow                        | No       | See (\*1)                                               |
-| `inputs`            | Input keys and values configured in the workflow file | No       | N/A                                                     |
-| `github-token`      | GitHub token                                          | No       | `${{ env.GITHUB_TOKEN }}` or<br/> `${{ github.token }}` |
-| `channel`           | Slack channel name                                    | No (\*2) | N/A                                                     |
-| `slack-bot-token`   | Slack bot token                                       | No (\*2) | `${{ env.SLACK_BOT_TOKEN }}`                            |
-| `slack-webhook-url` | Slack webhook URL                                     | No (\*2) | `${{ env.SLACK_WEBHOOK_URL }}`                          |
-| `mention`           | Slack user ID to mention                              | No       | N/A                                                     |
-| `button`            | OKとNGボタン名                                        | No       | N/A                                                     |
-| `cancel-workflow`   | Workflow ID or file name for Cancel                   | No       | N/A                                                     |
+| Name                | Description                                                 | Required | Default                                                 |
+| ------------------- |-------------------------------------------------------------| -------- | ------------------------------------------------------- |
+| `repository`        | Owner and repository name                                   | No       | `${{ github.repository }}`                              |
+| `workflow`          | Workflow ID or file name for ok                             | Yes      | N/A                                                     |
+| `ref`               | Git reference for the workflow                              | No       | See (\*1)                                               |
+| `inputs`            | Input keys and values configured in the workflow file for ok | No       | N/A                                                     |
+| `github-token`      | GitHub token                                                | No       | `${{ env.GITHUB_TOKEN }}` or<br/> `${{ github.token }}` |
+| `channel`           | Slack channel name                                          | No (\*2) | N/A                                                     |
+| `slack-bot-token`   | Slack bot token                                             | No (\*2) | `${{ env.SLACK_BOT_TOKEN }}`                            |
+| `slack-webhook-url` | Slack webhook URL                                           | No (\*2) | `${{ env.SLACK_WEBHOOK_URL }}`                          |
+| `mention`           | Slack user ID to mention                                    | No       | N/A                                                     |
+| `button`            | OKとNGボタン名                                                | No       | N/A                                                     |
+| `cancel-workflow`   | Workflow ID or file name for Cancel                         | No       | N/A                                                     |
+| `cancel-inputs`     | Input keys and values for Cancel                            | No       | N/A                                                     |
 
 1. `ref` default value are determined by the `repository` input and the event type as follows:
 

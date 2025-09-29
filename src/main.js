@@ -30,8 +30,9 @@ const getWorkflowName = async (owner, repo, workflowId) => {
 const main = async () => {
   const repository = core.getInput("repository");
   const workflow = core.getInput("workflow", { required: true });
-  const cancelWorkflow = core.getInput("cancelWorkflow");
+  const cancelWorkflow = core.getInput("cancel-workflow");
   const inputs = core.getInput("inputs");
+  const cancelInputs = core.getInput("cancel-inputs");
   const buttonNames = JSON.parse(core.getInput("button"));
   let ref = core.getInput("ref");
   let githubToken = core.getInput("github-token");
@@ -83,6 +84,7 @@ const main = async () => {
     mention,
     buttonNames,
     cancelWorkflow,
+    cancelInputs
   );
 
   if (slackBotToken) {
