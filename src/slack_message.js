@@ -56,6 +56,25 @@ const createMessage = (owner, repo, workflow, workflowName, ref, inputs, mention
       },
     });
   }
+  if (cancelWorkflow) {
+    message.attachments[0].blocks.push({
+      type: "section",
+      text: {
+        type: "mrkdwn",
+        text: `*Cancel Workflow*\n<${BASE_URL}/${owner}/${repo}/actions/workflows/${cancelWorkflow}|${cancelWorkflow}>`,
+      },
+    });
+    if (!!cancelInputsJson) {
+      const prettyCancelInput = JSON.stringify(JSON.parse(cancelInputsJson), null, 2);
+      message.attachments[0].blocks.push({
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: `*Cancel Workflow Inputs*\n\`\`\`${prettyCancelInput}\`\`\``,
+        },
+      });
+    }
+  }
 
   message.attachments[0].blocks.push(
     {
